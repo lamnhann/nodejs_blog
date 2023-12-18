@@ -23,7 +23,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/news', (req, res) => {
+  console.log(req.query.q);
   res.render('news')
+});
+
+app.get('/search', (req, res) => {
+  // Dung de goi param sau path
+  // console.log(req.query.ref);
+
+  res.render('search');
 });
 
 app.listen(port, () => {
