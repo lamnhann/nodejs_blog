@@ -30,7 +30,7 @@ app.engine(
     }),
 );
 app.set('view engine', 'hbs');
-      app.set('views', path.join(__dirname, 'resouces/views'));
+app.set('views', path.join(__dirname, 'resouces/views'));
 
 // Routes init
 route(app);
