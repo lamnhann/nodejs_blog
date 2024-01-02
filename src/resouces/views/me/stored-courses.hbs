@@ -17,7 +17,7 @@
                 <option value="delete">Xoá</option>
             </select>
 
-            <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Thực hiện</button>
+            <button class="btn btn-primary btn-sm check-all-submit-btn" disabled>Thực hiện</button>
         </div>
     </div>
 
@@ -86,7 +86,8 @@
     document.addEventListener('DOMContentLoaded', function(){
     var courseId;
     var deleteForm = document.forms['delete-course-form'];
-    var containerForm = document.forms['container-form'];
+    //var containerForm = document.forms['container-form'];
+    var containerForm = $('form[name="container-form"]');
     var btnDeleteCourse = document.getElementById('btn-delete-course')
 
     // Sử dụng Jquery để lấy ra element, nó sẽ wrap dom element của check box này.
@@ -109,6 +110,7 @@
     // Sử dụng Jquery nó đơn giản hơn việc không cần thêm on vào trước mỗi sự kiện
     // Check all changed
     checkboxAll.change(function() {
+        // $(this): ở đây là nút chính nó checkboxAll
         // $(this).prop('checked'): Lấy ra giá trị true khi click còn fasle khi không click. prop: là property
         var isCheckedAll = $(this).prop('checked');
         //set true false dựa vào nút isCheckedAll | courseItemCheckbox.prop('checked', true or false)
@@ -125,25 +127,16 @@
         renderCheckAllSubmitBtn();
     })
 
-    // Check all submit button clicked
-    // Đây ta submit mặc định theo hành động submit vào trong nó kiểm tra đủ điều kiện để submit mặc định hay không
-    checkallSubmitBtn.on('submit', function(e) {
-        // $(this): ở đây là nút chính nó checkallSubmitBtn
-        // hasClass: kiểm tra có class đó hay không
-        var isSubmittable = !$(this).hasClass('disabled')
-        if(!isSubmittable) {
-            e.preventDefault();
-        }
-    })
-
     // Re-render check all submit button
     // Thực hiện nếu có ô nào check sẽ sáng nút thực hiện
     function renderCheckAllSubmitBtn() {
         var checkedCount = $('input[name="courseIds[]"]:checked').length;
         if (checkedCount > 0) {
-            checkallSubmitBtn.removeClass('disabled')
+            // checkallSubmitBtn.attr('disabled', false): trường hợp false nó sẽ gở attr đó đi
+            checkallSubmitBtn.attr('disabled', false)
         } else {
-            checkallSubmitBtn.addClass('disabled')
+            // checkallSubmitBtn.attr('disabled', false): trường hợp true nó sẽ thêm attr đó vào
+            checkallSubmitBtn.attr('disabled', true)
         }
     }
 
