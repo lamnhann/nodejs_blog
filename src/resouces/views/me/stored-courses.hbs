@@ -25,9 +25,20 @@
         <thead>
             <tr>
                 <th scope="col" colspan="2">#</th>
-                <th scope="col">Tên khoá học</th>
-                <th scope="col">Trình độ</th>
-                <th scope="col" colspan="2">Thời gian tạo</th>
+                <th scope="col">
+                    Tên khoá học
+                    {{!-- res.locals._sort: _sort tên biến --}}
+                    {{!-- name: là 1 field trong database --}}
+                    {{{sortable 'name' _sort}}}
+                </th>
+                <th scope="col">
+                    Trình độ
+                    {{{sortable 'level' _sort}}}
+                </th>
+                <th scope="col" colspan="2">
+                    Thời gian tạo
+                    {{{sortable 'createdAt' _sort}}}
+                </th>
             </tr>
         </thead>
         <tbody>

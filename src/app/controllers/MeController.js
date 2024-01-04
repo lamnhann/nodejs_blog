@@ -5,7 +5,16 @@ class MeController {
     // [GET] /me/stored/courses
     storedCourses(req, res, next) {
 
-        Promise.all([Course.find({}),Course.countDocumentsDeleted()])
+        let courseQuery = Course.find({});  
+
+        if(req.query.hasOwnProperty('_sort')) {
+            courseQuery = courseQuery.sort({
+                // [req.query.column]: sử dụng ngoặc vuông để đặt tên biến cho key.
+                [req.query.column]: req.query.type
+            });
+        }
+
+        Promise.all([courseQuery,Course.countDocumentsDeleted()])
             // Promise.all sẽ trả về một promise dạng mảng
             // courses là kết quả của promise .then(courses), deletedCount là kết quả của promise .then(deletedCount) 
             // [courses, deletedCount] là sử dụng destructuring bóc tách các phần tử trong mảng
